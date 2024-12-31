@@ -1,0 +1,284 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/vachana_list.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">  <!-- Added Font Awesome -->
+    <style>
+    /* Profile Card Styling */
+        .cardd {
+            background-color: #f9f9f9;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            transition: transform 0.3s;
+        }
+        
+        .cardd:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Profile Image Styling */
+        .account-img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #ff5733; /* Colorful border */
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Profile Heading */
+        #profile-h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 20px;
+            color: #333;
+            letter-spacing: 1px;
+        }
+
+        /* Profile Title (Email) */
+        .title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #777;
+        }
+
+        /* Location Styling */
+        .location {
+            font-size: 20px;
+            font-weight: 500;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* Social Media Icons Styling */
+        #auth-links {
+            font-size: 28px;
+            margin: 0 15px;
+            color: #555;
+            transition: color 0.3s;
+        }
+
+        #auth-links:hover {
+            color: #007bff;
+        }
+
+        /* Update Profile Button Styling */
+        #btn-profile {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 12px 30px;
+            border: 2px solid #28a745;
+            border-radius: 25px;
+            color: #28a745;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: 600;
+        }
+
+        #btn-profile a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        #btn-profile:hover {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        /* Form Styling */
+        form {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Success Message Styling */
+        .alert {
+            margin-top: 20px;
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background: linear-gradient(90deg, #8a2be2, #7b68ee); /* Spiritual-themed gradient (purple tones) */
+            padding: 25px 15px; /* Reduced padding to make the navbar smaller */
+        }
+
+        nav .navbar-brand {
+            font-weight: 600;
+            font-size: 24px; /* Reduced font size for a more compact look */
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        nav .nav-link {
+            font-weight: 500;
+            font-size: 16px; /* Reduced font size */
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        nav .nav-link:hover {
+            color: #ffcc00; /* Gold color for hover effect */
+        }
+        
+        .logo {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        }
+
+        .logo img {
+        width: 60px;
+        margin-right: 0.6rem;
+        }
+
+        .logo h3 {
+        color: orange;
+        font-size: 1.55rem;
+        line-height: 1.2;
+        font-weight: 700;
+        }
+
+
+        
+    </style>
+
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <div class="logo">
+                <img src="{% static 'images/logo.jpg' %}" alt="Logo">
+                <a class="navbar-brand" href="#">Vachana Darshana</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'vachanas:vachana_list' %}">Vachanas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:profile' %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+
+        
+        <div class="container mt-5">
+            <h2 id="profile-h1">Profile</h2>
+
+            <!-- Display User Information -->
+            <div class="cardd">
+                <div class="d-flex justify-content-center mb-4">
+                    <!-- Use the user's profile image -->
+                    <img class="rounded-circle account-img" src="{{ request.user.picture.url }}" alt="User-Profile-Image" />
+                </div>
+
+                <!-- Profile Information -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <!-- Full Name -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">First Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ request.user.first_name }}
+                            </div>
+                        </div>
+                        <hr>
+            
+                        <!-- Last Name -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Last Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ request.user.last_name }}
+                            </div>
+                        </div>
+                        <hr>
+            
+                        <!-- Email -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ request.user.email }}
+                            </div>
+                        </div>
+                        <hr>
+            
+                        <!-- Phone Number -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Phone Number</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ request.user.phone_number }}
+                            </div>
+                        </div>
+                        <hr>
+            
+                        <!-- Location -->
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Location</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ request.user.location }}
+                            </div>
+                        </div>
+                        <hr>
+                <!-- Social media icons -->
+                <div class="text-center">
+                    <a href="#" id="auth-links"><i class="fab fa-dribbble"></i></a>
+                    <a href="#" id="auth-links"><i class="fab fa-twitter"></i></a>
+                    <a href="#" id="auth-links"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" id="auth-links"><i class="fab fa-facebook"></i></a>
+                </div>
+
+            <!-- Button to Update Profile -->
+            <p class="text-center">
+                <button id="btn-profile">
+                    <a href="{% url 'users:profile_update' %}" id="auth-links">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Update Profile
+                    </a>
+                </button>
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

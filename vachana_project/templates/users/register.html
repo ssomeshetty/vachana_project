@@ -1,0 +1,73 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+    <title>User Registration</title>
+  </head>
+  <body>
+    <div class="content">
+      <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+          <div class="col-md-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h3 class="card-title text-center mb-4">Create Your Account</h3>
+                
+                <span class="mb-0 text-muted">
+                  {% if msg %}
+                    {{ msg | safe }}
+                  {% else %}
+                    Please fill in the form to register.
+                  {% endif %}
+                </span>
+
+                <form method="post">
+                  {% csrf_token %}
+                  <div class="form-group mb-3">
+                      <label for="first_name">First Name</label>
+                      {{ form.first_name }}
+                  </div>
+                  <div class="form-group mb-3">
+                      <label for="last_name">Last Name</label>
+                      {{ form.last_name }}
+                  </div>
+                  <div class="form-group mb-3">
+                      <label for="email">Email</label>
+                      {{ form.email }}
+                  </div>
+                  <div class="form-group mb-3">
+                      <label for="password1">Password</label>
+                      {{ form.password1 }}
+                  </div>
+                  <div class="form-group mb-3">
+                      <label for="password2">Confirm Password</label>
+                      {{ form.password2 }}
+                  </div>
+                  <div class="form-group mb-3">
+                      <label for="date_of_birth">Date of Birth</label>
+                      {{ form.date_of_birth }}
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-block w-100">Register</button>
+                </form>
+
+                <div class="text-center mt-4">
+                  <span class="text-muted">Already have an account? <a href="{% url 'login' %}">Login here</a></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

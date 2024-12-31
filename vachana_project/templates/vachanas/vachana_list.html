@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/vachana_list.css' %}">
+    <style>
+        /* Devotional Theme - Vachana list CSS */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Navbar styling */
+        nav {
+            background-color: #2c3e50;
+        }
+
+        nav a.nav-link {
+            color: #ecf0f1 !important;
+        }
+
+        nav a.nav-link:hover {
+            color:rgb(223, 19, 94) !important;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f39c12 !important;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        .vachana-post {
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .vachana-post h5 {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .vachana-post p {
+            color: #7f8c8d;
+        }
+
+        .vachana-post .author-info {
+            font-size: 0.9rem;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+
+        .vachana-post .content {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .vachana-post .like-btn {
+            background-color: #3498db;
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .vachana-post .like-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .vachana-post .like-count {
+            font-size: 0.9rem;
+            color: #2c3e50;
+        }
+
+        .vachana-post .upvote-icon {
+            margin-right: 5px;
+        }
+
+          .logo {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        }
+
+        .logo img {
+        width: 60px;
+        margin-right: 0.6rem;
+        }
+
+        .logo h3 {
+        color: orange;
+        font-size: 1.55rem;
+        line-height: 1.2;
+        font-weight: 700;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <div class="logo">
+                <img src="{% static 'images/logo.jpg' %}" alt="Logo">
+                <a class="navbar-brand" href="#">Vachana Darshana</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'vachanas:vachana_list' %}">Vachanas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'vachanas:create_vachana' %}">Post Vachana</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:profile' %}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <!-- Welcome message -->
+        <h2>Welcome, {{ user.first_name }}!</h2>
+        <p>This is your Vachanas page, where you can read or post the Vachanas.</p>
+
+        <!-- Vachana Search Form -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <form method="GET" action="{% url 'vachanas:vachana_list' %}" class="form-inline">
+                    <input type="text" name="search" value="{{ search_query }}" class="form-control mr-2"
+                        placeholder="Search by author, category, or content">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <h3>Vachanas</h3>
+        <div class="list-group">
+            {% for vachana in vachanas %}
+            <div class="vachana-post">
+                 <div class="author-info">
+                <p><strong>Shared By:</strong> {% if vachana.sender %} {{ vachana.sender.email }} {% else %} Unknown {% endif %}</p>                    
+                <br>
+                <em>Category: {{ vachana.category }}</em> | 
+                <strong>Author: </strong>
+                <a href="{% url 'authors:author_detail' vachana.author.id %}">{{ vachana.author.name }}</a>
+            </div>
+                <div class="content">
+                    {{ vachana.content }}
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="like-count">
+                        <i class="upvote-icon">&#x2191;</i> {{ vachana.total_likes }} unique users have liked this Vachana
+                    </div>
+                    <a href="{% url 'vachanas:like_vachana' vachana.id %}" class="like-btn">
+                        <i class="upvote-icon">&#x2191;</i> Like
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="vachana-post">
+                No Vachanas found matching your criteria.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

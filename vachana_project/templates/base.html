@@ -1,0 +1,229 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vachana Darshana</title>
+
+    <!-- External CSS for Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+</head>
+
+<body>
+    <main>
+        <div class="big-wrapper light">
+            <!-- Navigation Bar -->
+            <header>
+                <div class="container">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <img src="{% static 'images/logo.jpg' %}" alt="Logo">
+                        <h3>Vachana Darshana</h3>
+                    </div>
+
+                    <!-- Menu Items -->
+                    <div class="links">
+                        <ul>
+                            {% comment %} {% if user.is_authenticated %} {% endcomment %}
+                                <!-- Log Out Form for authenticated users -->
+                                {% comment %} <form method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Log Out</button>
+                                </form> {% endcomment %}
+                                {% comment %} <span>Welcome, {{ user.username }}</span> {% endcomment %}
+                            {% comment %} {% else %} {% endcomment %}
+                                <!-- Menu Items for unauthenticated users -->
+                                <li><a href="#Home">Home</a></li>
+                                <li><a href="#About">About Vachanas</a></li>
+                                <li><a href="#Contact">Contact</a></li>
+                                <li><a href="{% url 'users:login' %}">Log In</a></li>
+                                <li><a href="{% url 'users:register' %}">Sign Up</a></li>
+                            {% comment %} {% endif %} {% endcomment %}
+                        </ul>
+                    </div>
+                    <div class="overlay"></div>
+                    <div class="hamburger-menu">
+                        <div class="bar"></div>
+                    </div>
+                </div>
+            </header>
+        </div>
+    </main>
+
+    <!-- Horizontal Image Slider -->
+    <section class="image-slider">
+        <div class="slider-wrapper">
+            <div class="slider">
+                <img src="{% static 'images/sharana1.jpg' %}" class="slide" alt="Image 1">
+                <img src="{% static 'images/sharana.jpg' %}" class="slide" alt="Image 2">
+                <img src="{% static 'images/sharana2.jpg' %}" class="slide" alt="Image 3">
+                <img src="{% static 'images/sharana3.jpg' %}" class="slide" alt="Image 4">
+                <img src="{% static 'images/sharana4.jpg' %}" class="slide" alt="Image 5">
+                <img src="{% static 'images/sharana5.jpg' %}" class="slide" alt="Image 6">
+                <img src="{% static 'images/sharana6.jpg' %}" class="slide" alt="Image 7">
+                <img src="{% static 'images/sharana7.jpg' %}" class="slide" alt="Image 8">
+            </div>
+        </div>
+
+        <!-- Slider Controls (Prev and Next) -->
+        <div class="slider-controls">
+            <button class="prev" onclick="goPrev()">
+                <img class="pre" src="{% static 'images/left-arrow.png' %}" alt="left">
+            </button>
+            <button class="next" onclick="goNext()">
+                <img class="nex" src="{% static 'images/right-arrow.png' %}" alt="right">
+            </button>
+        </div>
+    </section>
+
+    <div class="overlay"></div>
+
+    <!-- Sections -->
+    <section id="About">
+        <div class="container">
+            <div class="welcome_block">
+                <div class="bg_style1">
+                    <div class="title_sec">
+                        <div class="title_style">
+                            <h2>
+                                Welcome to 
+                                <span class="font-ita">Vachana Darshana</span>
+                            </h2>
+                        </div>
+                        <p>
+                            Welcome to Vachana Darshana, a digital sanctuary where the timeless wisdom of the 12th-century Sharanas comes alive. Here, we invite you to explore the profound teachings and poetic expressions that have shaped the spiritual and philosophical landscape of India.
+
+                            The Vachanas are not just poems; they are a reflection of the soul’s journey toward truth, devotion, and self-realization. Written by great saints like Basava, Akka Mahadevi, and Allama Prabhu, these powerful verses transcend time, speaking to the hearts of all who seek understanding and inner peace.
+
+                            Whether you are here to connect with the divine through poetry, learn about the rich spiritual heritage of the Veerashaiva tradition, or simply discover the beauty of devotional literature, we are honored to guide you on this sacred path.
+
+                            With over 500 vachanas to explore, you’ll find a wealth of insights on love, devotion, equality, and the search for the ultimate truth. Each vachana carries a story, a lesson, and a call to awaken to the divinity within.</p>
+
+                            <p>Feel free to browse, read, and reflect on the words of the Sharanas. May these vachanas inspire, uplift, and guide you toward a deeper connection with yourself and the divine.
+
+                            Embark on the journey of Vachana Darshana today, and let the wisdom of the Sharanas illuminate your path.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-vachanas">
+                <div class="title-sec">
+                    <div class="title-name">
+                        <h2>
+                            About 
+                            <span class="font-ita">Vachanas</span>
+                        </h2>
+                    </div>
+                    <p>
+                        Vachanas are a unique form of devotional poetry that emerged in 12th-century Karnataka, India, and are central to the Veerashaiva (Lingayat) tradition. The word Vachana itself means "speech" or "utterance" in Kannada, and these verses were considered to be expressions of divine truth, spoken directly from the heart of the poet-saints, or Sharanas, to the soul of the listener.
+
+                        Written in simple, yet profound language, the Vachanas convey deep spiritual insights, emphasizing devotion to God, equality of all beings, and the quest for inner realization. The beauty of Vachanas lies not only in their simplicity but in their ability to speak to the human experience in an intimate and transformative way.
+
+                        These poems were written by spiritual giants like Basava, Akka Mahadevi, Allama Prabhu, Sarvagna, Devara Dasimayya, Chandayya, Siddharama, and many others. They used Vachanas as a medium to express their thoughts on life, the divine, and the search for liberation (Moksha). Unlike conventional religious texts, Vachanas were accessible to all people, irrespective of caste, gender, or social status, making them a tool of social and spiritual reform.</p> 
+
+                        <p>Vachanas are a call to surrender the ego, embrace equality, and experience divine presence in everyday life. They are often characterized by direct, personal language and ask the reader or listener to engage with the divine in an intimate, unmediated way—whether in the form of devotion, self-discipline, or meditative reflection.
+
+                        Through the Vachanas, the Sharanas rejected rigid rituals and external displays of religiosity. Instead, they emphasized inner purity, devotion, and the presence of the divine within each individual.
+
+                        Today, the Vachanas continue to inspire spiritual seekers and philosophers alike, offering timeless wisdom for a world that still yearns for truth, compassion, and spiritual awakening.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Contact"></section>
+
+    <!-- Scroll-to-top Button -->
+    <div class="button">
+        <a href="#Home">
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
+    </div>
+
+    <!-- Content Block -->
+    {% block content %}
+    {% endblock %}
+
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <script>
+        const slides = document.querySelectorAll(".slide");
+        let counter = 0; // Keep track of the current slide index
+
+        // Set up each slide's position (same as what you have already)
+        slides.forEach((slide, index) => {
+            slide.style.left = `${index * 100}%`;  // Position each slide in the slider
+        });
+
+        // Function to update the slider's transform style to slide the images
+        const sliderImage = () => {
+            // We apply a transform to shift the images based on the counter
+            slides.forEach(slide => {
+                slide.style.transform = `translateX(-${counter * 100}%)`;
+            });
+        };
+
+        // Function to move to the next image
+        const goNext = () => {
+            counter++;
+            // When counter reaches the last image, loop back to the first image
+            if (counter >= slides.length) {
+                counter = 0;
+            }
+            sliderImage();
+        };
+
+        // Automatic slider functionality - move to the next image every 5 seconds
+        const autoSlide = () => {
+            goNext(); // Use goNext to increment the counter and move to the next slide
+        };
+
+        // Set interval to automatically change the image every 5 seconds
+        let autoSlideInterval = setInterval(autoSlide, 3500);
+
+        // Call sliderImage to initialize the first position
+        sliderImage();
+        const goPrev = () => {
+            counter--;
+            if(counter < 0) {
+                counter = slides.length -1 ;
+            }
+            sliderImage()
+        };
+
+        var hamburger_menu;
+        var big_wrapper;
+
+        function declare() {
+            // Get the elements for the hamburger menu and the main wrapper
+            hamburger_menu = document.querySelector(".hamburger-menu");
+            big_wrapper = document.querySelector(".big-wrapper");
+        }
+
+        const main = document.querySelector("main");
+
+        // Initialize the elements
+        declare();
+
+        // Function to handle the hamburger menu toggle
+        function events() {
+            hamburger_menu.addEventListener("click", () => {
+                // Toggle the "active" class on the big wrapper when the hamburger menu is clicked
+                big_wrapper.classList.toggle("active");
+            });
+        }
+
+        // Call the events function to add event listeners
+        events();
+    </script>
+</body>
+
+</html>

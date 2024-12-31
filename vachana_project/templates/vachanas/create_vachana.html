@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Vachana</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="css/post_vachana.css">
+</head>
+<body>
+    {% block content %}
+    <div class="container mt-5">
+        <h2>Create a New Vachana</h2>
+
+        <form method="POST" class="bg-light p-4 rounded shadow-sm">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="author" class="font-weight-bold">Author</label>
+                {{ form.author }} <!-- This will render the select box for the author -->
+            </div>
+
+            <div class="form-group">
+                <label for="category" class="font-weight-bold">Category</label>
+                {{ form.category }} <!-- Renders the category input field -->
+            </div>
+
+            <div class="form-group">
+                <label for="content" class="font-weight-bold">Content</label>
+                {{ form.content }} <!-- Renders the content textarea -->
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

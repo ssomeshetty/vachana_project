@@ -191,7 +191,8 @@
             <div class="cardd">
                 <div class="d-flex justify-content-center mb-4">
                     <!-- Use the user's profile image -->
-                    <img class="rounded-circle account-img" src="{{ request.user.picture.url }}" alt="User-Profile-Image" />
+                    <img class="rounded-circle account-img"
+                     src="{% if request.user.picture %}{{ request.user.picture.url }}{% else %}{% static 'images/default.jpg' %}{% endif %}" alt="User-Profile-Image" />
                 </div>
 
                 <!-- Profile Information -->

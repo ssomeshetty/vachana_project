@@ -19,7 +19,7 @@
             <div class="card shadow-sm">
               <div class="card-body">
                 <h3 class="card-title text-center mb-4">Create Your Account</h3>
-                
+
                 <span class="mb-0 text-muted">
                   {% if msg %}
                     {{ msg | safe }}
@@ -33,33 +33,75 @@
                   <div class="form-group mb-3">
                       <label for="first_name">First Name</label>
                       {{ form.first_name }}
+                      {% if form.first_name.errors %}
+                        <div class="invalid-feedback d-block">
+                          {% for error in form.first_name.errors %}
+                            <p>{{ error }}</p>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
                   </div>
                   <div class="form-group mb-3">
                       <label for="last_name">Last Name</label>
                       {{ form.last_name }}
+                      {% if form.last_name.errors %}
+                        <div class="invalid-feedback d-block">
+                          {% for error in form.last_name.errors %}
+                            <p>{{ error }}</p>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
                   </div>
                   <div class="form-group mb-3">
                       <label for="email">Email</label>
                       {{ form.email }}
+                      {% if form.email.errors %}
+                        <div class="invalid-feedback d-block">
+                          {% for error in form.email.errors %}
+                            <p>{{ error }}</p>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
                   </div>
                   <div class="form-group mb-3">
                       <label for="password1">Password</label>
                       {{ form.password1 }}
+                      {% if form.password1.errors %}
+                        <div class="invalid-feedback d-block">
+                          {% for error in form.password1.errors %}
+                            <p>{{ error }}</p>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
                   </div>
                   <div class="form-group mb-3">
                       <label for="password2">Confirm Password</label>
                       {{ form.password2 }}
+                      {% if form.password2.errors %}
+                        <div class="invalid-feedback d-block">
+                          {% for error in form.password2.errors %}
+                            <p>{{ error }}</p>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
                   </div>
                   <div class="form-group mb-3">
                       <label for="date_of_birth">Date of Birth</label>
                       {{ form.date_of_birth }}
+                      {% if form.date_of_birth.errors %}
+                        <div class="invalid-feedback d-block">
+                          {% for error in form.date_of_birth.errors %}
+                            <p>{{ error }}</p>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
                   </div>
 
                   <button type="submit" class="btn btn-primary btn-block w-100">Register</button>
                 </form>
 
                 <div class="text-center mt-4">
-                  <span class="text-muted">Already have an account? <a href="{% url 'login' %}">Login here</a></span>
+                  <span class="text-muted">Already have an account? <a href="{% url 'users:login' %}">Login here</a></span>
                 </div>
               </div>
             </div>

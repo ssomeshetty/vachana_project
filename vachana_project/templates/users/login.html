@@ -16,7 +16,7 @@
           <div class="col-md-6">
             <div class="card shadow-sm">
               <div class="card-body">
-                <h3 class="card-title text-center mb-4">Welcome To FixMyCity</h3>
+                <h3 class="card-title text-center mb-4">Welcome To Vachana Darshana</h3>
 
                 {% for message in messages %}
                   <div class="alert alert-{{ message.tags }}">
@@ -46,6 +46,12 @@
 
                   <button type="submit" class="btn btn-primary btn-block">Log In</button>
                 </form>
+
+                <!-- Add Register Link -->
+                <div class="text-center mt-4">
+                  <p>Don't have an account? <a href="{% url 'users:register' %}" class="btn btn-link">Register here</a></p>
+                </div>
+
               </div>
             </div>
           </div>

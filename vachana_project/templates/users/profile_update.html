@@ -1,17 +1,4 @@
-{% comment %} <form id="update_user_form" method="POST" action="/userprofile/update_user/" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ update_user_form.as_p }}
-    {{ update_profile_form.as_p }}
-    
-    <!-- Display the current profile picture if it exists -->
-    {% if update_profile_form.instance.picture %}
-        <img src="{{ update_profile_form.instance.picture.url }}" alt="Profile Picture" />
-    {% endif %}
-    
-    <br />
-    <input type="submit" name="submit" value="Update" />
-</form>
- {% endcomment %}
+
 
 {% load static %}
 {% load crispy_forms_tags %}
@@ -55,36 +42,3 @@ Update Profile
 
 {% endblock %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} <div class="container mt-5">
-        <h2>Profile</h2>
-        
-        <!-- User Information Form -->
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Update Profile</button>
-        </form>
-
-        <!-- Success message after form submission -->
-        {% if messages %}
-            <div class="alert alert-success mt-3">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-    </div> {% endcomment %}

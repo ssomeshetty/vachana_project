@@ -1,0 +1,5 @@
+Vachana Darshana : This web project is dedicated to showcasing vachanas written in the 12th century, allowing users to search for vachanas by title or author. The website includes detailed author information and organizes vachanas into themes such as spirituality, social justice, and philosophy.
+Users can browse the vachanas without signing up, but if they choose to register, they can log in using Django's built-in authentication system. Once logged in, users gain access to additional features, including a personalized search for vachanas by author and a detailed view of each vachana with options to rate, review, and translate it into different languages.
+The homepage features a random vachana displayed daily, and all pages are designed with a professional, responsive layout using Bootstrap, with background images on the navigation bar. 
+The site also allows users to share vachanas on social media platforms. Additionally, users can explore author biographies by clicking on an author's name.
+The project ensures an engaging user experience while preserving the cultural and philosophical essence of the vachanas

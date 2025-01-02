@@ -11,7 +11,7 @@ class Vachana(models.Model):
     # Unique ID for each Vachana
     id = models.AutoField(primary_key=True)
     # The author of the Vachana (ForeignKey to Author)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="vachanas_written")
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="vachanas_written", null=True, blank=True)
     # User who submitted the Vachana (ForeignKey to User)
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="submitted_vachanas")
     # Category of Vachana (e.g., love, spirituality, etc.)

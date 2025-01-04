@@ -1,4 +1,111 @@
 <!-- authors/templates/authors/author_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Detail</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .author-photo img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-photo {
+            width: 200px;
+            height: 200px;
+            background-color: #f0f0f0;
+            font-size: 16px;
+            text-align: center;
+            color: #aaa;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .back-link a {
+            transition: background-color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            background-color: #5a6268;
+        }
+
+        .author-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007bff;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+        }
+
+        .author-info p {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .author-photo img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Author Photo Section -->
+        <div class="col-md-4 text-center mb-4">
+            <div class="author-photo">
+            {% if author.photo %}
+            <img src="{{ author.photo.url }}" alt="{{ author.name }}" class="img-fluid">
+            {% else %}
+            <p>No photo available</p>
+            {% endif %}
+            </div>
+        </div>
+
+        <!-- Author Information Section -->
+        <div class="col-md-8">
+            <h2>{{ author.name }}</h2>
+            <div class="author-info mt-4">
+                <p>{{ author.information }}</p>
+            </div>
+
+            <!-- Back Button Section -->
+            
+            <div class="back-link mt-4">
+                <a href="{% url 'vachanas:vachana_list' %}" class="btn btn-secondary">Back to Vachanas</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
+{% comment %} 
 <div class="container mt-5">
     <h2>{{ author.name }}</h2>
     <div class="author-photo">
@@ -15,4 +122,4 @@
     <div class="back-link">
         <a href="{% url 'vachanas:vachana_list' %}" class="btn btn-secondary">Back to Vachanas</a>
     </div>
-</div>
+</div> {% endcomment %}

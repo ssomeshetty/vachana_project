@@ -28,8 +28,8 @@ def vachana_list(request):
 
     return render(request, 'vachanas/vachana_list.html', {'vachanas': vachanas, 'search_query': search_query})
 
-from django.shortcuts import redirect, get_object_or_404
 
+from django.shortcuts import redirect, get_object_or_404
 
 @login_required
 def like_vachana(request, vachana_id):

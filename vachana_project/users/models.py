@@ -49,5 +49,23 @@ class CustomUser(AbstractUser):
     
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
+    
+from django.db import models
+from django.conf import settings
+
+class Activity(models.Model):
+    ACTIVITY_CHOICES = [
+        ('created', 'Created Vachana'),
+        ('liked', 'Liked Vachana'),
+        # You can add more activities here
+    ]
+    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    activity_type = models.CharField(max_length=20, choices=ACTIVITY_CHOICES)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} {self.get_activity_type_display()} at {self.timestamp}"
+
 
 

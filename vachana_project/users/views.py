@@ -51,22 +51,12 @@ def user_login(request):
 from .forms import CustomUserUpdateForm  # You'll need to create a form for updating user details
 
 
+# from collections import Counter
+
 @login_required
 def profile(request):
-    """Render the profile page with user details."""
+   
     return render(request, 'users/profile.html')
-
-# def profile_update(request):
-#     """Handle profile update logic."""
-#     if request.method == 'POST':
-#         form = CustomUserUpdateForm(request.POST, instance=request.user)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Your profile has been updated!")
-#             return redirect('users:profile')
-#     else:
-#         form = CustomUserUpdateForm(instance=request.user)
-#     return render(request, 'users/profile_update.html', {'form': form})
 
 
 def profile_update(request):
@@ -77,7 +67,6 @@ def profile_update(request):
             return redirect('users:profile')
         else:
             messages.error(request, 'Please correct the error below.')
-            # return render(request, 'settings/update_profile.html', {'form': form,'form_errors': form_errors})
     else:
         form = CustomUserUpdateForm(instance=request.user)
     # Pass form errors to the template

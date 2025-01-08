@@ -36,9 +36,16 @@ def like_vachana(request, vachana_id):
     vachana = get_object_or_404(Vachana, id=vachana_id)
     # Add the logged-in user to the list of users who liked this Vachana
     vachana.likes.add(request.user)
+
+    # Track the 'liked' activity
+    Activity.objects.create(user=request.user, activity_type='liked')
+
     return redirect('vachanas:vachana_list')
 
+
+
 from .forms import VachanaForm
+from users.models import Activity
 @login_required
 def create_vachana(request):
     if request.method == 'POST':
@@ -48,6 +55,9 @@ def create_vachana(request):
             vachana = form.save(commit=False)
             vachana.sender = request.user  # Set the user who created the Vachana
             vachana.save()
+            # Track the 'created' activity
+            Activity.objects.create(user=request.user, activity_type='created')
+        
             return redirect('vachanas:vachana_list')  # Redirect to Vachana list page
     else:
         form = VachanaForm()

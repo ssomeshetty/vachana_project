@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{% static 'css/vachana_list.css' %}">
     <style>
         /* Devotional Theme - Vachana list CSS */
@@ -164,16 +166,21 @@
         <div class="list-group">
             {% for vachana in vachanas %}
             <div class="vachana-post">
-                 <div class="author-info">
-                <p><strong>Shared By:</strong> {% if vachana.sender %} {{ vachana.sender.email }} {% else %} Unknown {% endif %}</p>                    
-                <br>
-                <em>Category: {{ vachana.category }}</em> | 
-                <strong>Author: </strong>
-                <a href="{% url 'authors:author_detail' vachana.author.id %}">{{ vachana.author.name }}</a>
-            </div>
-                <div class="content">
+                <!-- Author and Category Info -->
+                <div class="author-info">
+                    <p><strong>Shared By:</strong> {% if vachana.sender %} {{ vachana.sender.email }} {% else %} Unknown {% endif %}</p>                    
+                    <br>
+                    <em>Category: {{ vachana.category }}</em> | 
+                    <strong>Author: </strong>
+                    <a href="{% url 'authors:author_detail' vachana.author.id %}">{{ vachana.author.name }}</a>
+                </div>
+
+                <!-- Content of the Vachana (Larger font size for emphasis) -->
+                <div class="content" style="font-size: 1.4rem; line-height: 1.6;">
                     {{ vachana.content }}
                 </div>
+
+                <!-- Like Button -->
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="like-count">
                         <i class="upvote-icon">&#x2191;</i> {{ vachana.total_likes }} unique users have liked this Vachana
@@ -182,7 +189,32 @@
                         <i class="upvote-icon">&#x2191;</i> Like
                     </a>
                 </div>
+
+                <!-- Social Media Icons (Smaller, Left-Aligned) -->
+                <div class="d-flex align-items-center mt-3">
+                    <!-- WhatsApp -->
+                    <a href="https://api.whatsapp.com/send?text={{ vachana.content }} - Author: {{ vachana.author.name }} {{ request.build_absolute_uri }}" class="text-center" style="margin-right: 10px; font-size: 25px;">
+                        <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title=Vachana by {{ vachana.author.name }}&summary={{ vachana.content }} - Author: {{ vachana.author.name }}" class="text-center" style="margin-right: 10px; font-size: 25px;">
+                        <i class="fab fa-linkedin" style="color: #0077b5;"></i>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}&quote={{ vachana.content }} - Author: {{ vachana.author.name }}" class="text-center" style="margin-right: 10px; font-size: 25px;">
+                        <i class="fab fa-facebook" style="color: #1877f2;"></i>
+                    </a>
+
+                    <!-- Twitter -->
+                    <a href="https://twitter.com/intent/tweet?text={{ vachana.content }} - Author: {{ vachana.author.name }} {{ request.build_absolute_uri }}" class="text-center" style="margin-right: 10px; font-size: 25px;">
+                        <i class="fab fa-twitter" style="color: #1DA1F2;"></i>
+                    </a>
+                </div>
             </div>
+
+          
             {% empty %}
             <div class="vachana-post">
                 No Vachanas found matching your criteria.

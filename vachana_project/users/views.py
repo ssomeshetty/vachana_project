@@ -3,7 +3,7 @@
 # # Create your views here.
 
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 
@@ -48,17 +48,21 @@ def user_login(request):
         form = AuthenticationForm()
     return render(request, 'users/login.html', {'form': form})
 
+def user_logout(request):
+    # Logout the user
+    logout(request)
+    # Redirect to the login page or home page
+    return redirect('base')  # You can change this to redirect to any page you prefer
+
+
+
 from .forms import CustomUserUpdateForm  # You'll need to create a form for updating user details
-
-
-# from collections import Counter
-
 @login_required
 def profile(request):
-   
+    
     return render(request, 'users/profile.html')
 
-
+@login_required
 def profile_update(request):
     if request.method == 'POST':
         form = CustomUserUpdateForm(request.POST, request.FILES, instance=request.user)

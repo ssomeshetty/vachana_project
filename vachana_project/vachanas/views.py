@@ -25,6 +25,7 @@ def vachana_list(request):
             Q(category__icontains=search_query) |  # Filter by category (case-insensitive)
             Q(content__icontains=search_query)  # Filter by content (case-insensitive)
         )
+        
 
     return render(request, 'vachanas/vachana_list.html', {'vachanas': vachanas, 'search_query': search_query})
 

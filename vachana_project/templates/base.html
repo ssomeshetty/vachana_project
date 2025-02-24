@@ -1,229 +1,499 @@
 
 {% load static %}
-
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vachana Darshana</title>
+    <title>Vachana Darshana - Sacred Poetry</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FF8C00;
+            --secondary-color: #8B4513;
+            --accent-color: #FFA500;
+            --bg-light: #FFF8DC;
+            --text-dark: #2C1810;
+        }
 
-    <!-- External CSS for Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        body {
+            font-family: 'Palatino', serif;
+            background: linear-gradient(135deg, var(--bg-light) 0%, #FFF5E6 100%);
+            color: var(--text-dark);
+        }
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            padding: 0.8rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            padding: 2px;
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+        }
+
+        .nav-link {
+            color: #fff !important;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.3rem;
+            border-radius: 20px;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link i {
+            margin-right: 0.5rem;
+        }
+
+        /* Hero Section */
+        /* Hero Section */
+        .hero-section {
+            margin-top: 76px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url("{% static 'images/am.png' %}");
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        /* Hero Text */
+        .hero-content h1 {
+            font-size: 4rem;
+            font-family: 'Cinzel', serif; /* Use a spiritual, elegant font */
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(255, 140, 0, 0.8), 0 0 25px rgba(255, 140, 0, 0.4); /* Glowing effect */
+            animation: fadeInUp 1.5s ease-out; /* Animation */
+        }
+
+        /* Subheading Style */
+        .hero-content p {
+            font-size: 1.5rem;
+            font-family: 'Merriweather', serif; /* A more readable yet spiritual font */
+            color: #FFD700; /* Gold color for the text */
+            text-shadow: 2px 2px 5px rgba(255, 140, 0, 0.8), 0 0 25px rgba(255, 140, 0, 0.4); /* Glowing effect */
+            animation: fadeInUp 2s ease-out; /* Animation */
+        }        
+        /* Slider Styles */
+        .image-slider {
+            position: relative;
+            overflow: hidden;
+            height: 570px;
+            margin: 2rem 0;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        /* Slider Controls Positioning */
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            pointer-events: none; /* Ensure buttons don't block clicks */
+        }
+
+        .slider-controls button {
+            position: relative;
+            pointer-events: all; /* Allow button clicks */
+            background: rgba(255, 140, 0, 0.7);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .slider-controls button:hover {
+            background: rgba(255, 140, 0, 0.9);
+            transform: scale(1.1);
+        }
+
+        .slider-controls .prev {
+            left: 1rem;
+        }
+
+        .slider-controls .next {
+            right: 1rem;
+        }
+
+        /* Content Sections */
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+            margin: 3rem 0;
+        }
+
+        .welcome-section, .about-section {
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+        }
+
+        .font-ita {
+            font-style: italic;
+            color: var(--primary-color);
+        }
+
+        .content-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+            padding: 0 2rem;
+        }
+
+        
+
+        /* Responsive Design */
+        /* Animation for Text */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 400px;
+                margin-top: 62px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto; /* Push footer to the bottom */
+        }
+
+        footer span {
+            font-size: 1rem;
+        }
+    </style>
 </head>
-
 <body>
-    <main>
-        <div class="big-wrapper light">
-            <!-- Navigation Bar -->
-            <header>
-                <div class="container">
-                    <!-- Logo -->
-                    <div class="logo">
-                        <img src="{% static 'images/logo.jpg' %}" alt="Logo">
-                        <h3>Vachana Darshana</h3>
-                    </div>
-
-                    <!-- Menu Items -->
-                    <div class="links">
-                        <ul>
-                            {% comment %} {% if user.is_authenticated %} {% endcomment %}
-                                <!-- Log Out Form for authenticated users -->
-                                {% comment %} <form method="post" action="{% url 'logout' %}">
-                                    {% csrf_token %}
-                                    <button type="submit">Log Out</button>
-                                </form> {% endcomment %}
-                                {% comment %} <span>Welcome, {{ user.username }}</span> {% endcomment %}
-                            {% comment %} {% else %} {% endcomment %}
-                                <!-- Menu Items for unauthenticated users -->
-                                <li><a href="#Home">Home</a></li>
-                                <li><a href="#About">About Vachanas</a></li>
-                                <li><a href="#Contact">Contact</a></li>
-                                <li><a href="{% url 'users:login' %}">Log In</a></li>
-                                <li><a href="{% url 'users:register' %}">Sign Up</a></li>
-                            {% comment %} {% endif %} {% endcomment %}
-                        </ul>
-                    </div>
-                    <div class="overlay"></div>
-                    <div class="hamburger-menu">
-                        <div class="bar"></div>
-                    </div>
-                </div>
-            </header>
-        </div>
-    </main>
-
-    <!-- Horizontal Image Slider -->
-    <section class="image-slider">
-        <div class="slider-wrapper">
-            <div class="slider">
-                <img src="{% static 'images/sharana1.jpg' %}" class="slide" alt="Image 1">
-                <img src="{% static 'images/sharana.jpg' %}" class="slide" alt="Image 2">
-                <img src="{% static 'images/sharana2.jpg' %}" class="slide" alt="Image 3">
-                <img src="{% static 'images/sharana3.jpg' %}" class="slide" alt="Image 4">
-                <img src="{% static 'images/sharana4.jpg' %}" class="slide" alt="Image 5">
-                <img src="{% static 'images/sharana5.jpg' %}" class="slide" alt="Image 6">
-                <img src="{% static 'images/sharana6.jpg' %}" class="slide" alt="Image 7">
-                <img src="{% static 'images/sharana7.jpg' %}" class="slide" alt="Image 8">
-            </div>
-        </div>
-
-        <!-- Slider Controls (Prev and Next) -->
-        <div class="slider-controls">
-            <button class="prev" onclick="goPrev()">
-                <img class="pre" src="{% static 'images/left-arrow.png' %}" alt="left">
-            </button>
-            <button class="next" onclick="goNext()">
-                <img class="nex" src="{% static 'images/right-arrow.png' %}" alt="right">
-            </button>
-        </div>
-    </section>
-
-    <div class="overlay"></div>
-
-    <!-- Sections -->
-    <section id="About">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <div class="welcome_block">
-                <div class="bg_style1">
-                    <div class="title_sec">
-                        <div class="title_style">
-                            <h2>
-                                Welcome to 
-                                <span class="font-ita">Vachana Darshana</span>
-                            </h2>
-                        </div>
-                        <p>
-                            Welcome to Vachana Darshana, a digital sanctuary where the timeless wisdom of the 12th-century Sharanas comes alive. Here, we invite you to explore the profound teachings and poetic expressions that have shaped the spiritual and philosophical landscape of India.
-
-                            The Vachanas are not just poems; they are a reflection of the soul’s journey toward truth, devotion, and self-realization. Written by great saints like Basava, Akka Mahadevi, and Allama Prabhu, these powerful verses transcend time, speaking to the hearts of all who seek understanding and inner peace.
-
-                            Whether you are here to connect with the divine through poetry, learn about the rich spiritual heritage of the Veerashaiva tradition, or simply discover the beauty of devotional literature, we are honored to guide you on this sacred path.
-
-                            With over 500 vachanas to explore, you’ll find a wealth of insights on love, devotion, equality, and the search for the ultimate truth. Each vachana carries a story, a lesson, and a call to awaken to the divinity within.</p>
-
-                            <p>Feel free to browse, read, and reflect on the words of the Sharanas. May these vachanas inspire, uplift, and guide you toward a deeper connection with yourself and the divine.
-
-                            Embark on the journey of Vachana Darshana today, and let the wisdom of the Sharanas illuminate your path.
-                        </p>
-                    </div>
-                </div>
+            <div class="logo">
+                <img src="{% static 'images/logo.jpg' %}" alt="Om Symbol">
+                <h3 class="text-white m-0"><i class="fas fa-om me-2"></i>Vachana Darshana</h3>
             </div>
-
-            <div class="about-vachanas">
-                <div class="title-sec">
-                    <div class="title-name">
-                        <h2>
-                            About 
-                            <span class="font-ita">Vachanas</span>
-                        </h2>
-                    </div>
-                    <p>
-                        Vachanas are a unique form of devotional poetry that emerged in 12th-century Karnataka, India, and are central to the Veerashaiva (Lingayat) tradition. The word Vachana itself means "speech" or "utterance" in Kannada, and these verses were considered to be expressions of divine truth, spoken directly from the heart of the poet-saints, or Sharanas, to the soul of the listener.
-
-                        Written in simple, yet profound language, the Vachanas convey deep spiritual insights, emphasizing devotion to God, equality of all beings, and the quest for inner realization. The beauty of Vachanas lies not only in their simplicity but in their ability to speak to the human experience in an intimate and transformative way.
-
-                        These poems were written by spiritual giants like Basava, Akka Mahadevi, Allama Prabhu, Sarvagna, Devara Dasimayya, Chandayya, Siddharama, and many others. They used Vachanas as a medium to express their thoughts on life, the divine, and the search for liberation (Moksha). Unlike conventional religious texts, Vachanas were accessible to all people, irrespective of caste, gender, or social status, making them a tool of social and spiritual reform.</p> 
-
-                        <p>Vachanas are a call to surrender the ego, embrace equality, and experience divine presence in everyday life. They are often characterized by direct, personal language and ask the reader or listener to engage with the divine in an intimate, unmediated way—whether in the form of devotion, self-discipline, or meditative reflection.
-
-                        Through the Vachanas, the Sharanas rejected rigid rituals and external displays of religiosity. Instead, they emphasized inner purity, devotion, and the presence of the divine within each individual.
-
-                        Today, the Vachanas continue to inspire spiritual seekers and philosophers alike, offering timeless wisdom for a world that still yearns for truth, compassion, and spiritual awakening.
-                    </p>
-                </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Home"><i class="fas fa-home"></i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#About"><i class="fas fa-book-open"></i>About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Contact"><i class="fas fa-envelope"></i>Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:login' %}"><i class="fas fa-sign-in-alt"></i>Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:register' %}"><i class="fas fa-user-plus"></i>Sign Up</a>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1><i class="fas fa-om"></i> Vachana Darshana</h1>
+            <p class="lead">Explore the Divine Wisdom of 12th Century Sharanas</p>
         </div>
     </section>
 
-    <section id="Contact"></section>
+    <!-- Image Slider -->
+    <div class="container">
 
-    <!-- Scroll-to-top Button -->
-    <div class="button">
-        <a href="#Home">
-            <i class="fa-solid fa-arrow-up"></i>
-        </a>
+         <div class="container" id="About">
+            <section class="welcome-section">
+                <h2 class="section-title">
+                    Welcome to <span class="font-ita">Vachana Darshana</span>
+                </h2>
+                <div class="content-text">
+                    <p>Welcome to Vachana Darshana, a digital sanctuary where the timeless wisdom of the 12th-century Sharanas comes alive. Here, we invite you to explore the profound teachings and poetic expressions that have shaped the spiritual and philosophical landscape of India.</p>
+                    <p>The Vachanas are not just poems; they are a reflection of the soul's journey toward truth, devotion, and self-realization. Written by great saints like Basava, Akka Mahadevi, and Allama Prabhu, these powerful verses transcend time, speaking to the hearts of all who seek understanding and inner peace.</p>
+                    <p>With over 500 vachanas to explore, you'll find a wealth of insights on love, devotion, equality, and the search for the ultimate truth. Each vachana carries a story, a lesson, and a call to awaken to the divinity within.</p>
+                </div>
+            </section>
+        </div>
+        <!-- Features Section -->
+        <section class="py-5">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <h3>Sacred Wisdom</h3>
+                        <p>Access centuries-old spiritual teachings and philosophical insights</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-hands-praying"></i>
+                        </div>
+                        <h3>Divine Connection</h3>
+                        <p>Experience the profound devotional poetry of the Sharanas</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-peace"></i>
+                        </div>
+                        <h3>Inner Journey</h3>
+                        <p>Explore the path of self-realization and spiritual growth</p>
+                    </div>
+                </div>                 
+            </div>
+        </section>
+        <section class="image-slider">
+            <div class="slider">
+                <!-- Using placeholder images - replace with actual historical images -->
+                <div class="slide">
+                    <img src="{% static 'images/basavanna_new.jpg' %}" alt="Basavanna">
+                    <div class="slide-caption">
+                        <h3>Basavanna (1134-1196 CE)</h3>
+                        <p>The founder of Lingayat tradition and social reformer</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="{% static 'images/akka.jpg' %}" alt="Akka Mahadevi">
+                    <div class="slide-caption">
+                        <h3>Akka Mahadevi (12th century)</h3>
+                        <p>Female vachana poet and social reformer</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="{% static 'images/devara.jpg' %}" alt="Devara Dasimayya">
+                    <div class="slide-caption">
+                        <h3>Devara Dasimayya (12th century CE)</h3>
+                        <p>First Vachana poet</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="{% static 'images/sarvagna.jpg' %}"  alt="Sarvagna">
+                    <div class="slide-caption">
+                        <h3>Sarvagna</h3>
+                        <p>Mystic and philosopher of the Veerashaiva movement</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="{% static 'images/sharana5.jpg' %}"  alt="">
+                    <div class="slide-caption">
+                        <h3>Sharanas/Vachana Poets</h3>
+                        <p>Mystic and philosopher of the Veerashaiva movement</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="{% static 'images/sharana6.jpg' %}"  alt="">
+                    <div class="slide-caption">
+                        <h3>Sharanas/Vachana Poets</h3>
+                        <p>Mystic and philosopher of the Veerashaiva movement</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="{% static 'images/kudalasangam.jpg' %}"  alt="Kudala Sangam">
+                    <div class="slide-caption">
+                        <h3>Kudala Sangam</h3>
+                        <p>Religious places of worship during the era</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="prev" onclick="goPrev()"><i class="fas fa-chevron-left"></i></button>
+                <button class="next" onclick="goNext()"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+ 
+        <div class="section-divider"></div>
+            <section class="about-section">
+                <h2 class="section-title">
+                    About <span class="font-ita">Vachanas</span>
+                </h2>
+                <div class="content-text">
+                    <p>Vachanas are a unique form of devotional poetry that emerged in 12th-century Karnataka, India, and are central to the Veerashaiva (Lingayat) tradition. The word Vachana itself means "speech" or "utterance" in Kannada, and these verses were considered to be expressions of divine truth, spoken directly from the heart of the poet-saints, or Sharanas, to the soul of the listener.</p>
+                    <p>Written in simple, yet profound language, the Vachanas convey deep spiritual insights, emphasizing devotion to God, equality of all beings, and the quest for inner realization. The beauty of Vachanas lies not only in their simplicity but in their ability to speak to the human experience in an intimate and transformative way.</p>
+                    <p>Through the Vachanas, the Sharanas rejected rigid rituals and external displays of religiosity. Instead, they emphasized inner purity, devotion, and the presence of the divine within each individual.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Content Sections -->
+        <!-- [Previous Welcome and About sections remain the same] -->
+        <!-- Contact Section -->
+        <footer>
+            <span>&copy; 2025 Vachana Darshana. All rights reserved.</span>
+        </footer>
     </div>
 
-    <!-- Content Block -->
-    {% block content %}
-    {% endblock %}
 
-    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <!-- JavaScript to Control Slider -->
     <script>
         const slides = document.querySelectorAll(".slide");
-        let counter = 0; // Keep track of the current slide index
+        let counter = 0;
 
-        // Set up each slide's position (same as what you have already)
         slides.forEach((slide, index) => {
-            slide.style.left = `${index * 100}%`;  // Position each slide in the slider
+            slide.style.transform = `translateX(${index * 100}%)`;
         });
 
-        // Function to update the slider's transform style to slide the images
         const sliderImage = () => {
-            // We apply a transform to shift the images based on the counter
             slides.forEach(slide => {
+                slide.style.transition = "transform 0.5s ease-in-out";
                 slide.style.transform = `translateX(-${counter * 100}%)`;
             });
         };
 
-        // Function to move to the next image
         const goNext = () => {
-            counter++;
-            // When counter reaches the last image, loop back to the first image
-            if (counter >= slides.length) {
-                counter = 0;
-            }
+            counter = (counter + 1) % slides.length;
             sliderImage();
         };
 
-        // Automatic slider functionality - move to the next image every 5 seconds
-        const autoSlide = () => {
-            goNext(); // Use goNext to increment the counter and move to the next slide
-        };
-
-        // Set interval to automatically change the image every 5 seconds
-        let autoSlideInterval = setInterval(autoSlide, 3500);
-
-        // Call sliderImage to initialize the first position
-        sliderImage();
         const goPrev = () => {
-            counter--;
-            if(counter < 0) {
-                counter = slides.length -1 ;
-            }
-            sliderImage()
+            counter = (counter - 1 + slides.length) % slides.length;
+            sliderImage();
         };
 
-        var hamburger_menu;
-        var big_wrapper;
+        // Auto slide with pause on hover
+        const slider = document.querySelector('.image-slider');
+        let slideInterval = setInterval(goNext, 3500);
 
-        function declare() {
-            // Get the elements for the hamburger menu and the main wrapper
-            hamburger_menu = document.querySelector(".hamburger-menu");
-            big_wrapper = document.querySelector(".big-wrapper");
-        }
+        slider.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
 
-        const main = document.querySelector("main");
-
-        // Initialize the elements
-        declare();
-
-        // Function to handle the hamburger menu toggle
-        function events() {
-            hamburger_menu.addEventListener("click", () => {
-                // Toggle the "active" class on the big wrapper when the hamburger menu is clicked
-                big_wrapper.classList.toggle("active");
-            });
-        }
-
-        // Call the events function to add event listeners
-        events();
+        slider.addEventListener('mouseleave', () => {
+            slideInterval = setInterval(goNext, 3500);
+        });
     </script>
 </body>
-
 </html>

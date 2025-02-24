@@ -1,220 +1,255 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="{% static 'css/vachana_list.css' %}">
+    <title>Vachana Darshana</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom_style.css' %}">
     <style>
-        /* Devotional Theme - Vachana list CSS */
+        :root {
+            --primary-color: #FF8C00;
+            --secondary-color: #8B4513;
+            --accent-color: #FFA500;
+            --bg-light: #FFF8DC;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Palatino', serif;
+            background: linear-gradient(135deg, var(--bg-light) 0%, #FFF5E6 100%);
             color: #333;
         }
 
-        /* Navbar styling */
-        nav {
-            background-color: #2c3e50;
-        }
-
-        nav a.nav-link {
-            color: #ecf0f1 !important;
-        }
-
-        nav a.nav-link:hover {
-            color:rgb(223, 19, 94) !important;
+        .navbar {
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-brand {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #f39c12 !important;
+            font-family: 'Palatino', serif;
+            font-size: 2rem;
+            color: #FFF !important;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .container {
-            margin-top: 40px;
-        }
-
-        .vachana-post {
-            background-color: #fff;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        .vachana-post h5 {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .vachana-post p {
-            color: #7f8c8d;
-        }
-
-        .vachana-post .author-info {
-            font-size: 0.9rem;
-            color: #34495e;
-            margin-bottom: 10px;
-        }
-
-        .vachana-post .content {
+        .nav-link {
+            color: #FFF !important;
             font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: #2c3e50;
+            transition: all 0.3s ease;
         }
 
-        .vachana-post .like-btn {
-            background-color: #3498db;
-            color: #fff;
-            padding: 5px 10px;
-            font-size: 1rem;
-            border-radius: 5px;
-            text-decoration: none;
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+            transform: translateY(-2px);
         }
 
-        .vachana-post .like-btn:hover {
-            background-color: #2980b9;
-        }
-
-        .vachana-post .like-count {
-            font-size: 0.9rem;
-            color: #2c3e50;
-        }
-
-        .vachana-post .upvote-icon {
-            margin-right: 5px;
-        }
-
-          .logo {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
+        .logo {
+            display: flex;
+            align-items: center;
         }
 
         .logo img {
-        width: 60px;
-        margin-right: 0.6rem;
+            width: 50px;
+            height: 50px;
+            margin-right: 1rem;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            padding: 2px;
         }
 
-        .logo h3 {
-        color: orange;
-        font-size: 1.55rem;
-        line-height: 1.2;
-        font-weight: 700;
+        .vachana-post {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
 
+        .vachana-post:hover {
+            transform: translateY(-5px);
+        }
 
+        .content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #333;
+            font-family: 'Palatino', serif;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+        }
+
+        .search-form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .like-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .like-btn:hover {
+            background-color: var(--secondary-color);
+            text-decoration: none;
+            color: white;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+
+        .author-info {
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+
+            .logo img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .content {
+                font-size: 1.1rem;
+            }
+
+            .vachana-post {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <!-- Navbar with Om symbol -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <div class="logo">
-                <img src="{% static 'images/logo.jpg' %}" alt="Logo">
-                <a class="navbar-brand" href="#">Vachana Darshana</a>
+                <img src="{% static 'images/logo.jpg' %}" alt="Om Symbol">
+                <a class="navbar-brand" href="{% url 'vachanas:vachana_list' %}">
+                    <i class="fas fa-om me-2"></i>Vachana Darshana
+                </a>
             </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'vachanas:vachana_list' %}">Vachanas</a>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'vachanas:vachana_list' %}"><i class="fas fa-book me-2"></i>Vachanas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'vachanas:create_vachana' %}">Post Vachana</a>
+                        <a class="nav-link" href="{% url 'vachanas:create_vachana' %}"><i class="fas fa-pen-fancy me-2"></i>Post Vachana</a>
                     </li>
                     <li class="nav-item">
-                       <a class="nav-link" href="{% url 'users:profile' %}">Profile</a>
+                        <a class="nav-link" href="{% url 'users:profile' %}"><i class="fas fa-user me-2"></i>Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+                        <a class="nav-link" href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <!-- Welcome message -->
-        <h2>Welcome, {{ user.first_name }}!</h2>
-        <p>This is your Vachanas page, where you can read or post the Vachanas.</p>
-
-        <!-- Vachana Search Form -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <form method="GET" action="{% url 'vachanas:vachana_list' %}" class="form-inline">
-                    <input type="text" name="search" value="{{ search_query }}" class="form-control mr-2"
-                        placeholder="Search by author, category, or content">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-            </div>
+    <div class="container py-5">
+        <!-- Welcome Section -->
+        <div class="text-center mb-5">
+            <h2 class="display-4 mb-3">🕉 Welcome, {{ user.first_name }}!</h2>
+            <p class="lead">Explore the divine wisdom through ancient Vachanas</p>
         </div>
 
-        <h3>Vachanas</h3>
-        <div class="list-group">
+        <!-- Search Form -->
+        <div class="search-form">
+            <form method="GET" class="row g-3 align-items-center" action="{% url 'vachanas:vachana_list' %}">
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <input type="text" name="search" class="form-control" placeholder="Search by author, category, or content">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Vachanas List -->
+        <div class="vachanas-container">
             {% for vachana in vachanas %}
             <div class="vachana-post">
-                <!-- Author and Category Info -->
-                <div class="author-info">
-                    <p><strong>Shared By:</strong> {% if vachana.sender %} {{ vachana.sender.email }} {% else %} Unknown {% endif %}</p>                    
-                    <br>
-                    <em>Category: {{ vachana.category }}</em> | 
-                    <strong>Author: </strong>
-                    <a href="{% url 'authors:author_detail' vachana.author.id %}">{{ vachana.author.name }}</a>
+                <div class="author-info mb-3">
+                    <p class="mb-2"><strong><i class="fas fa-user-edit me-2"></i>Shared By:</strong> {{ vachana.sender.email }}</p>
+                    <p class="mb-0">
+                        <span class="badge bg-warning text-dark me-2">Category: {{ vachana.category }}</span>
+                        <strong><i class="fas fa-feather-alt me-2"></i>Author:</strong>
+                        <a href="{% url 'authors:author_detail' vachana.author.id %}" class="text-decoration-none">{{ vachana.author.name }}</a>
+                    </p>
                 </div>
 
-                <!-- Content of the Vachana (Larger font size for emphasis) -->
-                <div class="content" style="font-size: 1.4rem; line-height: 1.6;">
+                <div class="content">
                     {{ vachana.content }}
                 </div>
 
-                <!-- Like Button -->
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="like-count">
-                        <i class="upvote-icon">&#x2191;</i> {{ vachana.total_likes }} unique users have liked this Vachana
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <div class="likes">
+                        <i class="fas fa-heart text-danger me-2"></i>
+                        <span>{{ vachana.total_likes }} unique users have liked this Vachana</span>
                     </div>
-                    <a href="{% url 'vachanas:like_vachana' vachana.id %}" class="like-btn">
-                        <i class="upvote-icon">&#x2191;</i> Like
+                    <a href="{% url 'vachanas:like_vachana' vachana.id %}" class="like-btn text-decoration-none">
+                        <i class="fas fa-heart me-2"></i>Like
                     </a>
                 </div>
 
-                <!-- Social Media Icons (Smaller, Left-Aligned) -->
-                <div class="d-flex align-items-center mt-3">
-                    <!-- WhatsApp -->
+                <div class="social-icons mt-4 pt-3 border-top">
                     <a href="https://api.whatsapp.com/send?text={{ vachana.content }} - Author: {{ vachana.author.name }} {{ request.build_absolute_uri }}" class="text-center" style="margin-right: 10px; font-size: 25px;">
                         <i class="fab fa-whatsapp" style="color: #25D366;"></i>
                     </a>
-
-                    <!-- LinkedIn -->
                     <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title=Vachana by {{ vachana.author.name }}&summary={{ vachana.content }} - Author: {{ vachana.author.name }}" class="text-center" style="margin-right: 10px; font-size: 25px;">
                         <i class="fab fa-linkedin" style="color: #0077b5;"></i>
                     </a>
-
-                    <!-- Facebook -->
                     <a href="https://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}&quote={{ vachana.content }} - Author: {{ vachana.author.name }}" class="text-center" style="margin-right: 10px; font-size: 25px;">
                         <i class="fab fa-facebook" style="color: #1877f2;"></i>
                     </a>
-
-                    <!-- Twitter -->
                     <a href="https://twitter.com/intent/tweet?text={{ vachana.content }} - Author: {{ vachana.author.name }} {{ request.build_absolute_uri }}" class="text-center" style="margin-right: 10px; font-size: 25px;">
                         <i class="fab fa-twitter" style="color: #1DA1F2;"></i>
                     </a>
                 </div>
             </div>
-
-          
             {% empty %}
             <div class="vachana-post">
                 No Vachanas found matching your criteria.
@@ -223,10 +258,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

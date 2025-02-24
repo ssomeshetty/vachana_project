@@ -1,125 +1,173 @@
-<!-- authors/templates/authors/author_detail.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Author Detail</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <title>Author Detail - Vachana Darshana</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Custom CSS */
+        :root {
+            --primary-color: #FF8C00;
+            --secondary-color: #8B4513;
+            --accent-color: #FFA500;
+            --bg-light: #FFF8DC;
+        }
+
         body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
+            font-family: 'Palatino', serif;
+            background: linear-gradient(135deg, var(--bg-light) 0%, #FFF5E6 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .author-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .author-photo {
+            position: relative;
+            margin-bottom: 2rem;
         }
 
         .author-photo img {
-            max-width: 100%;
+            width: 100%;
+            max-width: 300px;
             height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+            border: 3px solid var(--accent-color);
+            padding: 5px;
         }
 
         .no-photo {
-            width: 200px;
-            height: 200px;
-            background-color: #f0f0f0;
-            font-size: 16px;
-            text-align: center;
-            color: #aaa;
-            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            border-radius: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 0 auto;
         }
 
-        .back-link a {
-            transition: background-color 0.3s ease;
-        }
-
-        .back-link a:hover {
-            background-color: #5a6268;
+        .no-photo i {
+            font-size: 4rem;
+            color: #999;
         }
 
         .author-name {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #007bff;
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .author-info h4 {
-            font-weight: 600;
+        .author-info {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #444;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-color);
         }
 
-        .author-info p {
+        .back-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
             font-size: 1.1rem;
-            color: #333;
+            transition: all 0.3s ease;
+            border: none;
+            margin-top: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .decorative-line {
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+            margin: 2rem 0;
         }
 
         @media (max-width: 768px) {
+            .author-card {
+                padding: 1rem;
+            }
+
+            .author-name {
+                font-size: 2rem;
+            }
+
+            .author-info {
+                font-size: 1.1rem;
+                padding: 1rem;
+            }
+
             .author-photo img {
-                width: 100%;
-                height: auto;
+                max-width: 250px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="container py-5">
+        <div class="author-card">
+            <div class="row">
+                <!-- Author Photo Section -->
+                <div class="col-md-4 text-center">
+                    <div class="author-photo">
+                        {% if author.photo %}
+                            <img src="{{ author.photo.url }}" alt="{{ author.name }}" class="img-fluid">
+                        {% else %}
+                            <div class="no-photo">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
 
-<div class="container mt-5">
-    <div class="row">
-        <!-- Author Photo Section -->
-        <div class="col-md-4 text-center mb-4">
-            <div class="author-photo">
-            {% if author.photo %}
-            <img src="{{ author.photo.url }}" alt="{{ author.name }}" class="img-fluid">
-            {% else %}
-            <p>No photo available</p>
-            {% endif %}
-            </div>
-        </div>
+                <!-- Author Information Section -->
+                <div class="col-md-8">
+                    <h1 class="author-name">
+                        <i class="fas fa-feather-alt me-3"></i>{{ author.name }}
+                    </h1>
+                    
+                    <div class="decorative-line"></div>
 
-        <!-- Author Information Section -->
-        <div class="col-md-8">
-            <h2>{{ author.name }}</h2>
-            <div class="author-info mt-4">
-                <p>{{ author.information }}</p>
-            </div>
+                    <div class="author-info">
+                        <i class="fas fa-quote-left fa-2x text-muted mb-3"></i>
+                        <p class="mt-3">{{ author.information }}</p>
+                        <i class="fas fa-quote-right fa-2x text-muted d-block text-end mt-3"></i>
+                    </div>
 
-            <!-- Back Button Section -->
-            
-            <div class="back-link mt-4">
-                <a href="{% url 'vachanas:vachana_list' %}" class="btn btn-secondary">Back to Vachanas</a>
+                    <!-- Back Button -->
+                    <div class="text-center text-md-start">
+                        <a href="{% url 'vachanas:vachana_list' %}" class="back-btn text-decoration-none">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Vachanas
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-{% comment %} 
-<div class="container mt-5">
-    <h2>{{ author.name }}</h2>
-    <div class="author-photo">
-        {% if author.photo %}
-        <img src="{{ author.photo.url }}" alt="{{ author.name }}" class="img-fluid">
-        {% else %}
-        <p>No photo available</p>
-        {% endif %}
-    </div>
-    <div class="author-info mt-4">
-        <h4>Biography:</h4>
-        <p>{{ author.information }}</p>
-    </div>
-    <div class="back-link">
-        <a href="{% url 'vachanas:vachana_list' %}" class="btn btn-secondary">Back to Vachanas</a>
-    </div>
-</div> {% endcomment %}
